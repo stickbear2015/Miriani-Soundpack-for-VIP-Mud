@@ -14,7 +14,7 @@
    SetPreservedVariable NIRPShip {%1};
    #If {%IfWord(%Word(%Word(%1,|,1), ,2),interceptor leviathan, )=1} {#Var NIRPSpeed 240};
    #If {%IfWord(%Word(%Word(%1,|,1), ,2),transverser, )=1} {#Var NIRPSpeed 80};
-   #If {%IfWord(%Word(%Word(%1,|,1), ,2),ameliorator antagonizer battlecruiser blink contender dart destroyer eviscerator expediter expeditioner gunship heliogaster roborant sentinel voyager, )=1} {#Var NIRPSpeed 66};
+   #If {%IfWord(%Word(%Word(%1,|,1), ,2),ameliorator antagonizer battlecruiser blink contender dart destroyer eviscerator expediter expeditioner gunship heliogaster roborant sentinel voyager, )=1} {#Var NIRPSpeed 65};
    #If {%IfWord(Quiet,%2,|)=0} {#Say {Speed is now set to @NIRPSpeed sectors per hour.}}
   }
  }

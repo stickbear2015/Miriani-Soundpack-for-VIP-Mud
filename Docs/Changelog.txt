@@ -2,12 +2,18 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Version 5.9.39, released Tue 05/22/2018:
 * testing
 =======
 =======
 =======
 =======
+=======
+Version 5.13.4, released 2019-01-17:
+* Fixed Shift F11 for toggling room sounds, which has been broken since version 5.13.1. Thanks to Kendle for reporting this!
+
+>>>>>>> upstream/master
 Version 5.13.3, released 2019-01-16:
 * Fixed message about shots seemingly having no effect not being properly gagged.
 

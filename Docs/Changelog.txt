@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Version 5.9.39, released Tue 05/22/2018:
 * testing
 =======
@@ -10,6 +11,19 @@ Version 5.9.39, released Tue 05/22/2018:
 =======
 =======
 =======
+=======
+Version 5.13.7, released 2019-01-20:
+* The soundpack's keep alive feature will no longer alert you about broken connection if Proxiani has already notified you that auto reconnect is in progress.
+* Fixed the archaeology thinggymabob saying feet instead of foot when it's exactly one foot.
+
+Version 5.13.6, released 2019-01-20:
+* Fixed issues that the soundpack had with the help file for getting started.
+* The soundpack now knows that it should log you in and select your character automatically as soon as Proxiani has auto reconnected to Miriani after a connection failure.
+
+Version 5.13.5, released 2019-01-20:
+* Fixed conf room 10. Thanks to Jason Stone for reporting!
+
+>>>>>>> upstream/master
 Version 5.13.4, released 2019-01-17:
 * Fixed Shift F11 for toggling room sounds, which has been broken since version 5.13.1. Thanks to Kendle for reporting this!
 

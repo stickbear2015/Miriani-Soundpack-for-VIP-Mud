@@ -12,9 +12,17 @@
 #Var AtSaInformationVars {X:CurXCoord|Y:CurYCoord|Dist:DistanceToShip|Power:PowerTotal|PowerEst:Power|Cargo:CargoFilled|CargoRem:RemainingStorageCapacity|CargoTotal:TotalStorageCapacity}
 
 #Alias atsm {
- #Exec {>sm};
- MainTrigSwitch 0 AtSaStarmap
-} {}
+ #If {@ZoneType="vehicle"} {
+  #If {%Defined(LastProxianiMessage)=1} {
+   #Exec {>atsm%RTrim( %0)}
+  } {
+   #Exec {>sm};
+   MainTrigSwitch 0 AtSaStarmap
+  }
+ } {
+  #Say {You need to be in an atmospheric salvager before using the atsm command.}
+ }
+}
 
 #Trigger {Atmosphere of *} {#GagLine 4 All} {AtSaStarmap}
 #Trigger {Power Remaining: &{AtSaPowerTotal}%} {} {AtSaStarmap}
@@ -133,17 +141,35 @@
  };
  MainTrigSwitch 1
 } {AtSaStarmap}
+
+#Trigger {Remaining Power: *.*[%]} {
+ #If {%IsNumber(%1)=1 and %IsNumber(%2)=1} {
+  #Say {Status:} NoVoice;
+  #Var ReadingVehicleStatus 1;
+  msplay Ship\Computer\Display@Ext
+ }
+} {Main|Vehicle}
 #Trigger {Vehicle Status: *} {
- msplay Ship\Computer\Display@Ext;
- #Sub {%1}
+ #If {%Defined(ReadingVehicleStatus)=1} {
+  #UnVar ReadingVehicleStatus
+ } {
+  #Sub {%Trim(%1)};
+  msplay Ship\Computer\Display@Ext
+ }
 } {Main|Vehicle}
 
 #Trigger {The pull of acceleration eases off as the ship ceases its *.} {
  msplay Atmo\salvagestop@Ext;
  #GagLine 1 All
 } {Main|Craft}
-#Trigger {A gust of atmospheric wind suddenly buffets the ship*} {msplay ship\misc\wind@Ext} {Main|Craft}
-#Trigger {The vehicle suddenly hits a pocket of fierce wind*} {msplay ship\misc\wind@Ext} {Main|Vehicle}
+#Trigger {A gust of atmospheric wind suddenly buffets the ship*} {
+ #GagLine 1 All;
+ msplay ship\misc\wind@Ext
+} {Main|Vehicle}
+#Trigger {The vehicle suddenly hits a pocket of fierce wind*} {
+ #If {%Pos(descent.,%1)>0} {#Sub {Descending.}} {#Sub {Ascending.}};
+ msplay ship\misc\wind@Ext
+} {Main|Vehicle}
 #Trigger {The vehicle shudders violently as it makes contact with the topmost gas clouds. *} {
  msplay Atmo\Contact@Ext;
  #GagLine 1 All
@@ -161,9 +187,10 @@
  msplay Ship\Misc\Salvage*3@Ext
 } {Main|Vehicle}
 #Trigger {* in from the salvager bay.} {
- #If {%ifword(%Word(%1, ,%Numwords(%1, )),@EntryStyles,%CRLF)=1} {msplay Ship\Misc\Hatch@Ext}
+ #If {%IfWord(%Word(%1, ,%Numwords(%1, )),@EntryStyles,%CRLF)=1} {msplay Ship\Misc\Hatch@Ext}
 } {Main}
 #Trigger {A whirlpool forms nearby, sucking the craft downward into its swirling vortex*} {
+ #Sub {Descending.};
  msplay Atmo\whirlpool@Ext;
  msplay Atmo\wave@Ext
 } {Main|Vehicle}
@@ -179,5 +206,5 @@
 #Trigger {*The craft has slammed into a massive life form. A breach in the outer hull has been detected*} {msplay Atmo\fishcrash@Ext} {Main|Vehicle}
 #Trigger {You hear a sharp whine as the vehicle accelerates through the*} {
  msplay ship\misc\descent@Ext;
- #gagline 1 all
+ #GagLine 1 All
 } {Main|Vehicle}

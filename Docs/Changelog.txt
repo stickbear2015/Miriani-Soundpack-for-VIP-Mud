@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Version 5.9.39, released Tue 05/22/2018:
 * testing
 =======
@@ -16,6 +17,53 @@ Version 5.9.39, released Tue 05/22/2018:
 =======
 =======
 =======
+=======
+Version 5.13.33, released 2019-03-02:
+* Fixed sooc for structures other than ships. Thanks Josh Westen for reporting and testing!
+
+Version 5.13.32, released 2019-02-27:
+* On a second thought, I removed character encoding from the soundpack entirely. Proxiani is so much better at handling that kind of stuff, so if you still would like to transmit non-english letters in Miriani, then you'll need to use Proxiani from now on. Benefits of removing this from the soundpack include, faster processing of comm messages, and you can now send super long rooc and say messages without triggering errors.
+
+Version 5.13.31, released 2019-02-27:
+* Disabled the soundpack's character encoding if Proxiani is in use, since the latest version of Proxiani (v1.0.43 or later) has a much better character encoding system. The soundpack will still decode stuff encoded by other non Proxiani Vip soundpacks, though.
+
+Version 5.13.30, released 2019-02-19:
+* Fixed status display sound not working when using the status command in a standard atmospheric salvager.
+
+Version 5.13.29, released 2019-02-12:
+* On a second thought, it is useful to know whether or not the vehicle is ascending or descending when it hits a pocket of fierce wind. So now the soundpack will indicate whether or not the vehicle is descending or ascending.
+
+Version 5.13.28, released 2019-02-12:
+* A few more atmo messages will now be gagged, such as the gust of fierce wind thing.
+
+Version 5.13.27, released 2019-02-12:
+* Added a bell sound for indicating Proxiani error. This works with Proxiani 1.0.20 and newer.
+
+Version 5.13.26, released 2019-02-11:
+* The soundpack will now send atsm to Proxiani if you're connected to Proxiani. This requires Proxiani version 1.0.17 or newer.
+
+Version 5.13.25, released 2019-02-10:
+* Fixed issues with default conf values not showing correctly.
+
+Version 5.13.24, released 2019-02-04:
+* Added more Proxiani OOB messages that the soundpack will understand, such as say, speech interrupt, and session info.
+
+Version 5.13.23, released 2019-02-02:
+* Added smf for smships full when connected to Proxiani.
+
+Version 5.13.22, released 2019-02-02:
+* Added a sound for Proxiani update notifications. You get update notifications for Proxiani if you run Proxiani from the Proxiani folder inside the shared soundpack folder in Dropbox, which is something I strongly recommend. If you don't have access to that shared folder in Dropbox, feel free to contact one of the Yobi's in Miriani for an invite.
+
+Version 5.13.21, released 2019-01-31:
+* Added a period at the end of item 12 in the main conf menu, since there was supposed to be a period there. Thank you Patric Avery for letting me know!
+
+Version 5.13.20, released 2019-01-31:
+* Fixed unclip sound playing unexpectedly in a Charming Existence (AIE Branch) at the Acrylon Spaceport. Thanks Anny Rain for reporting this!
+
+Version 5.13.19, released 2019-01-31:
+* Added options for private, chatter, and org channel sound volume offsets in conf com. Thanks to Ryan Salvatore for suggesting this!
+
+>>>>>>> upstream/master
 Version 5.13.18, released 2019-01-31:
 * Added a file called Proxiani.txt in the soundpack folder. It has information about Proxiani, including installation instructions.
 

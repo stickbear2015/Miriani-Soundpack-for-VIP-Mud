@@ -5,6 +5,7 @@
 #Config SlowWalk True
 
 #Var StabilizedSoundsPath {%Replace(@SoundsPath,~@,~~~@)}
+#If {%Defined(AutoSelectCharacter)=0} {#Var AutoSelectCharacter 1}
 
 #GUnAlias login
 #GUnAlias sc
@@ -39,7 +40,7 @@
 #Var GagEverything 0
 #Var Idle 0
 #If {%Defined(Connected)=0} {#Var Connected 0}
-#If {%Defined(LastProxianiMessage)=1} {#Exec {#Class Proxiani Enable;#Class NotProxiani Disable}} {#Exec {#Class Proxiani Disable;#Class NotProxiani Enable}}
+#If {%Defined(LastPXMessage)=1} {#Exec {#Class PX Enable;#Class NotPX Disable}} {#Exec {#Class PX Disable;#Class NotPX Enable}}
 
 #Trigger {Welcome to*} {
  #If {%IfWord(%1,...| Miriani!,|)=1} {#Class LookForLoginPrompt Enable}
@@ -93,28 +94,25 @@
    MirianiSoundPlay Standard General\Misc\Cancel@Ext
   }
  };
- #If {%Pos(proxiani,%1)=1} {ProcessProxianiMsg {%Copy(%1,10)}};
+ #If {%Pos(px,%1)=1} {ProcessPXMsg {%Copy(%1,4)}};
  #If {@CommandEcho=1} {#Config DisplayCommandsInOutput True}
 }
 
-#Alias ProcessProxianiMsg {
- #Class NotProxiani Disable;
- #Class Proxiani Enable;
- #Var LastProxianiMessage {%1};
- #Var LastProxianiMessageCategory {%Word(%1, ,1)};
- #If {%IfWord(starmap,@LastProxianiMessageCategory, )=1} {
-  #If {%Pos(nearest 1 |,@LastProxianiMessage)>0} {msplay General\Misc\Beep10@Ext};
-  #If {%Pos(nearest 0 |,@LastProxianiMessage)>0} {msplay Ship\Combat\Intruder@Ext};
-  #If {%Pos(| sensor interference,@LastProxianiMessage)>0} {msplay Ship\Computer\SensorInterference@Ext};
+#Alias ProcessPXMsg {
+ #Class NotPX Disable;
+ #Class PX Enable;
+ #Var LastPXMessage {%1};
+ #Var LastPXMessageCategory {%Word(%1, ,1)};
+ #If {%IfWord(starmap,@LastPXMessageCategory, )=1} {
+  #If {%Pos(nearest 1 |,@LastPXMessage)>0} {msplay General\Misc\Beep10@Ext};
+  #If {%Pos(nearest 0 |,@LastPXMessage)>0} {msplay Ship\Combat\Intruder@Ext};
+  #If {%Pos(| sensor interference,@LastPXMessage)>0} {msplay Ship\Computer\SensorInterference@Ext};
   speech stop
  };
- #If {%IfWord(say,@LastProxianiMessageCategory, )=1} {#Say {%Copy(%1,5)} NoDisplay};
- #If {%IfWord(interrupt,@LastProxianiMessageCategory, )=1} {speech stop;#Say {%Copy(%1,11)} NoDisplay};
- #If {%IfWord(error,@LastProxianiMessageCategory, )=1} {#Bell};
- #If {%IfWord(session,@LastProxianiMessageCategory, )=1} {
-  #If {%IfWord(%Word(%1, ,2),version, )=1} {#Var ProxianiVersion {%Word(%1, ,3)}};
-  #If {%Pos(| token,%1)>0} {#Var ProxianiProposedToken {%Copy(%1,%Pos(| token,%1)+8,8)}}
- }
+ #If {%IfWord(say,@LastPXMessageCategory, )=1} {#Say {%Copy(%1,5)} NoDisplay};
+ #If {%IfWord(interrupt,@LastPXMessageCategory, )=1} {speech stop;#Say {%Copy(%1,11)} NoDisplay};
+ #If {%IfWord(error,@LastPXMessageCategory, )=1} {#Bell};
+ #If {%IfWord(version,@LastPXMessageCategory, )=1} {#Var pxVersion {%Word(%1, ,2)}}
 }
 
 #Trigger {[*][*][*] * [*][*][*]} {
@@ -177,12 +175,12 @@
   };
   #GagLine 1 Voice;
   #Config DisplayCommandsInOutput False;
-  #Exec {1};
+  #Exec {@AutoSelectCharacter};
   #If {@CommandEcho=1} {#Config DisplayCommandsInOutput True}
  } {
   MirianiSoundPlay Standard General\Misc\prompt@Ext
  };
- #If {%Defined(ProxianiProposedToken)=1} {#Var ProxianiToken {@ProxianiProposedToken}}
+ #If {%Defined(PXProposedToken)=1} {#Var PXToken {@PXProposedToken}}
 } {LoggingIn}
 
 #Alias SPReload {
@@ -193,13 +191,13 @@
  #PC 0 Stop;
  #UnAlarm -1;
  #Alarm 0 {
-  #If {%Defined(LastProxianiMessage)=1} {
-   #Var Proxiani {#Var ProxianiVersion {@ProxianiVersion};#Var LastProxianiMessage {@LastProxianiMessage};#Var ProxianiToken {@ProxianiToken};#Var ProxianiProposedToken {@ProxianiProposedToken};#Class Proxiani Enable;#Class NotProxiani Disable}
+  #If {%Defined(LastPXMessage)=1} {
+   #Var PX {#Var PXVersion {@PXVersion};#Var LastPXMessage {@LastPXMessage};#Var PXToken {@PXToken};#Var PXProposedToken {@PXProposedToken};#Class PX Enable;#Class NotPX Disable}
   } {
-   #Var Proxiani {#Class Proxiani Disable;#Class NotProxiani Enable}
+   #Var PX {#Class PX Disable;#Class NotPX Enable}
   };
   #Exec {
-   #Reload;@Proxiani;
+   #Reload;@PX;
    #AddItem SoundpackIsLoading Reloading NoDuplicates;
    #Var Classification {@Classification};
    #Var Connected {@Connected};

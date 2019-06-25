@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Version 5.9.39, released Tue 05/22/2018:
 * testing
 =======
@@ -18,6 +19,26 @@ Version 5.9.39, released Tue 05/22/2018:
 =======
 =======
 =======
+=======
+Version 5.13.39, released 2019-05-26:
+* Fixed point unit output. Also removed the conf gadget options for point unit formatting since it caused far more headache than it was worth. And thanks to Patric Avery for pointing out a few missing periods in conf gadget!
+
+Version 5.13.38, released 2019-04-14:
+* Added an option in conf sound for a more prominent empty ammo alert sound. Thanks Yara Yobi for requesting this!
+
+Version 5.13.37, released 2019-04-14:
+* Added sound and history buffer for the High Guard channel.
+
+Version 5.13.36, released 2019-04-10:
+* The sound that indicates that you feel more skilled in archaeology will now also be played when you discover a dig site using a handheld planetary surveyor.
+
+Version 5.13.35, released 2019-03-21:
+* Fixed Proxiani update notification not being recognized by the soundpack.
+
+Version 5.13.34, released 2019-03-20:
+* The soundpack now supports Proxiani 2.0.
+
+>>>>>>> upstream/master
 Version 5.13.33, released 2019-03-02:
 * Fixed sooc for structures other than ships. Thanks Josh Westen for reporting and testing!
 

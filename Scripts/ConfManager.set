@@ -44,6 +44,7 @@ MissionMode:1
 UseHitCounter:0
 HitCounterFormatString:Total hits: $TOTALHITS ($DIRECTHITS direct, $PARTIALHITS partial). $DESTROYEDSHIPS ships, and $DESTROYEDDEBRIS debris were destroyed
 UseAlternativeCombatSounds:0
+PlayEmptyAmmoAlert:0
 RelDriveFreq:44100
 RelDriveVolume:0
 RelDriveStyle:1
@@ -79,8 +80,6 @@ GagDontUnderstandMessages:0
 NoDescString:You see nothing special.
 GagRoidDesc:0
 Surveying:0
-PointUnitOutputString:You have $LP license points and $CP combat points.$CRLFYou've gained $DIFFLP license points and $DIFFCP combat points since last check.
-PointUnitOutputStringWithOrg:You have $LP license points and $CP combat points.$CRLFYou've gained $DIFFLP license points and $DIFFCP combat points since last check.$CRLFYour organization has $OP points.$CRLFThat's $DIFFOP org points since last check.
 ShowFCSectorNamesAsNumbers:0
 BypassSocialToggles:0
 BypassActionToggles:0

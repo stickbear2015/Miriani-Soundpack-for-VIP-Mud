@@ -113,21 +113,17 @@ CameraPan|N:-4000^4000
 
 #Var ConfMenuGadgets {Gadget options:
 [1] Customize Message Board headers  [~%If(~@FormatMessageBoards=1,On,Off)].
-[2] Format string for Message Board post headers
+[2] Format string for Message Board post headers.
 [3] Customize the Lore Shopping Guide  [~%If(~@ModifyShoppingGuide=1,On,Off)].
-[4] Format string for the Lore Shopping Guide
-[5] Format string for Point Units
-[6] Format string for Point Units with org point output
-[7] Show sector names as numbers in flight control messages  [~%If(~@ShowFCSectorNamesAsNumbers=1,On,Off)].
-[8] Calculate directions when using directional archaeology dig site scanners  [~%If(~@ArchaeologyCalculateDirection=1,On,Off)].
-[9] In archaeology, show digging depth  [~%Case(~%Eval(~@ShowDiggingDepth+1),Off,Always,Only when you should switch from automatic to regular shovel)].
+[4] Format string for the Lore Shopping Guide.
+[5] Show sector names as numbers in flight control messages  [~%If(~@ShowFCSectorNamesAsNumbers=1,On,Off)].
+[6] Calculate directions when using directional archaeology dig site scanners  [~%If(~@ArchaeologyCalculateDirection=1,On,Off)].
+[7] In archaeology, show digging depth  [~%Case(~%Eval(~@ShowDiggingDepth+1),Off,Always,Only when you should switch from automatic to regular shovel)].
 %Chr(250)
 FormatMessageBoards|B
 MessageBoardFormatString|S:*||Use $SENDER for the message sender, $DATE for the date, $REFERENCE for the message reference, $SUBJECT for the subject line, and $VOTES for the votes (if any).
 ModifyShoppingGuide|B
 ShoppingGuideFormatString|S:*
-PointUnitOutputString|S:*
-PointUnitOutputStringWithOrg|S:*
 ShowFCSectorNamesAsNumbers|B
 ArchaeologyCalculateDirection|B
 ShowDiggingDepth|C:0,Off^1,Always^2,Only when you should switch from automatic to regular shovel
@@ -156,6 +152,8 @@ BypassSocialToggles|B
 [8] Randomly pan weapon sounds  [~%If(~@RandomiseCombatPan=1,On,Off)].
 [9] Randomize the panning of certain events (including cargo transfer)  [~%If(~@RandomisePlay=1,On,Off)].
 [10] Play the spam sound when Miriani indicates that you're spamming commands  [~%If(~@SpamAlert=1,On,Off)].
+[11] Alternative combat sounds  [~%If(~@UseAlternativeCombatSounds=1,On,Off)].
+[12] Play empty ammo alert sound  [~%If(~@PlayEmptyAmmoAlert=1,On,Off)].
 %Chr(250)
 Silent|E::#Alarm 0 {MasterMute {~@ConfOptionValue}}
 Vol|N:0^100:SetMasterVolume
@@ -167,6 +165,8 @@ RandomiseCombatVolume|B
 RandomiseCombatPan|B
 RandomisePlay|B
 SpamAlert|B::#Class SpamAlerts {~%If(~@SpamAlert=1,Enable,Disable)}
+UseAlternativeCombatSounds|B
+PlayEmptyAmmoAlert|B
 }
 
 #Var ConfMenuRoom {Room options:
@@ -365,12 +365,10 @@ HistoryLoggingInterval|N:5^100
 [1] Mission mode  [~%If(~@MissionMode=1,On,Off)].
 [2] Use hit counter  [~%If(~@UseHitCounter=1,On,Off)].
 [3] Hit counter formatter string  [~@HitCounterFormatString].
-[4] Alternative combat sounds  [~%If(~@UseAlternativeCombatSounds=1,On,Off)].
 %Chr(250)
 MissionMode|B
 UseHitCounter|B
 HitCounterFormatString|S:*
-UseAlternativeCombatSounds|B
 }
 
 #Var ConfMenuShip {Ship options

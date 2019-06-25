@@ -69,29 +69,27 @@
  }
 } {Main}
 #TRIGGER {* presses a small button on a compact black video camera, deactivating it.} {msplay General\Device\CameraOff@Ext} {Main}
-#Trigger {* indicates that the scan *.} {
+#Trigger {* indicates that the scan *} {
  #If {%NumWords(%0,~")=1} {
-  #Var DevicesTmp1 {%Word(%2, ,%NumWords(%2, ))};
-  #If {@DevicesTmp1="successful"} {
-   msplay General\Device\SurveyComplete@Ext;
-   #GagLine 1 All
+  #If {%IfWord(%2,failed.,|)=1} {
+   msplay General\Device\ScanFailed@Ext;
+   #GagLine 1 Voice
   } {
-   #If {@DevicesTmp1="failed"} {
-    msplay General\Device\ScanFailed@Ext;
-    #GagLine 1 Voice
-   }
+   #If {%Pos(successful,%2)>0} {msplay General\Device\SurveyComplete@Ext};
+   #If {%Pos(interest,%2)>0} {#Sub {Dig site!};msplay General\Archaeology\practice@Ext} {#GagLine 1 All}
   }
  }
 } {Main}
 #Trigger {Destination *Sector *Coordinates*} {
  #If {%Length(%Trim(%1%2%3))=0} {#GagLine 1 Voice}
 } {Main}
-#Trigger {You access * and note you have * license points and * combat points.*} {
+#Trigger {You access * and note you have * license points and * combat points. * of those points have come from industry.*} {
  #Var LicensePoints {%If(%Pos(.,%2)>0,%2,%2.0)};
  #Var CombatPoints {%If(%Pos(.,%3)>0,%3,%3.0)};
- #Var PointVars {LicensePoints|CombatPoints};
- #If {%Pos(Your private organization has,%4)=2} {
-  #Var OrgPoints {%Word(%4, ,6)};
+ #Var IndustryPoints {%If(%Pos(.,%4)>0,%4,%4.0)};
+ #Var PointVars {LicensePoints|CombatPoints|IndustryPoints};
+ #If {%Pos(Your private organization has,%5)=2} {
+  #Var OrgPoints {%Word(%5, ,6)};
   #If {%Pos(.,@OrgPoints)=0} {#Var OrgPoints {@OrgPoints.0}};
   #Var PointVars {@PointVars|OrgPoints}
  } {
@@ -141,18 +139,14 @@
  #UnVar LastPointVar;
  #UnVar Points;
  #UnVar PointVar;
- #Var PointUnitOutput {%If(%Length(@OrgPoints)>0,@PointUnitOutputStringWithOrg,@PointUnitOutputString)};
- #Var PointUnitOutput {%Replace(@PointUnitOutput,$UNIT,~%1)};
- #Var PointUnitOutput {%Replace(@PointUnitOutput,$LP,~@LicensePoints)};
- #Var PointUnitOutput {%Replace(@PointUnitOutput,$CP,~@CombatPoints)};
- #Var PointUnitOutput {%Replace(@PointUnitOutput,$OP,~@OrgPoints)};
- #Var PointUnitOutput {%Replace(@PointUnitOutput,$DIFFLP,~@LicensePointsDiff)};
- #Var PointUnitOutput {%Replace(@PointUnitOutput,$DIFFCP,~@CombatPointsDiff)};
- #Var PointUnitOutput {%Replace(@PointUnitOutput,$DIFFOP,~@OrgPointsDiff)};
- #Var PointUnitOutput {%Replace(@PointUnitOutput,$CRLF,%CRLF)};
- #Sub {%Expand(@PointUnitOutput)};
+ #If {%Length(@OrgPoints)>0} {
+  #Sub {@LicensePoints license points, @IndustryPoints industry points, @CombatPoints combat points, and @OrgPoints org points.%{CRLF}The difference since last check is @LicensePointsDiff license points, @IndustryPointsDiff industry points, @CombatPointsDiff combat points, and @OrgPointsDiff org points.}
+ } {
+  #Sub {@LicensePoints license points, @IndustryPoints industry points, and @CombatPoints combat points.%{CRLF}The difference since last check is @LicensePointsDiff license points, @IndustryPointsDiff industry points, and @CombatPointsDiff combat points.}
+ };
  SetPreservedVariable LastLicensePoints {@LastLicensePoints};
  SetPreservedVariable LastCombatPoints {@LastCombatPoints};
+ SetPreservedVariable LastIndustryPoints {@LastIndustryPoints};
  SetPreservedVariable LastOrgPoints {@LastOrgPoints}
 } {Main}
 #Trigger {* flick* a switch *.} {

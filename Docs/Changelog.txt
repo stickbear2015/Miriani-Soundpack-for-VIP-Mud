@@ -8,6 +8,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Version 5.9.39, released Tue 05/22/2018:
 * testing
 =======
@@ -20,6 +21,14 @@ Version 5.9.39, released Tue 05/22/2018:
 =======
 =======
 =======
+=======
+Version 5.13.41, released 2019-07-03:
+* Now the soundpack will gag the ship computer avatar if the avatar is just the standard ship computer, even when conf gag 10 is disabled.
+
+Version 5.13.40, released 2019-07-01:
+* Fixed an issue that meant holographic avatars would be gagged even if conf gag 10 was off.
+
+>>>>>>> upstream/master
 Version 5.13.39, released 2019-05-26:
 * Fixed point unit output. Also removed the conf gadget options for point unit formatting since it caused far more headache than it was worth. And thanks to Patric Avery for pointing out a few missing periods in conf gadget!
 
